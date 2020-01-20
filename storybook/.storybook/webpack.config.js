@@ -1,5 +1,6 @@
 const path = require('path');
 const autoprefixer = require('autoprefixer')({ overrideBrowserslist: ['last 2 versions', 'ie >= 10'] });
+const customProperties = require('postcss-custom-properties');
 
 const CopyPlugin = require('copy-webpack-plugin');
 
@@ -30,10 +31,52 @@ module.exports = async ({ config, mode }) => {
     enforce: 'pre',
   });
 
+  const sassLoader = {
+    loader: 'sass-loader',
+    options: {
+      prependData() {
+        return `
+          $feature-flags: (
+            ui-shell: true,
+            enable-css-custom-properties: true,
+          );
+        `;
+      },
+      sassOptions: {
+        includePaths: [path.resolve(__dirname, '..', 'node_modules')],
+      },
+      sourceMap: true,
+    },
+  };
+
   config.module.rules.push({
     test: /\.(s){0,1}css$/,
-    loaders: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
-    include: path.resolve(__dirname, '../../'),
+    sideEffects: true,
+    use: [
+      {
+        loader: 'style-loader',
+      },
+      {
+        loader: 'css-loader',
+        options: {
+          importLoaders: 2,
+          sourceMap: true,
+        },
+      },
+      {
+        loader: 'postcss-loader',
+        options: {
+          plugins: () => {
+            const autoPrefixer = require('autoprefixer')({
+              overrideBrowserslist: ['last 1 version', 'ie >= 11'],
+            });
+            return [customProperties(), autoPrefixer];
+          },
+          sourceMap: true,
+        },
+      },
+      sassLoader,
+    ],
   });
 
   config.module.rules.push({
