@@ -28,6 +28,10 @@ describe('CvTextArea', () => {
   it('should render correctly when invalid message is provided', () => {
     const propsData = { label: 'test label', value: 'test value', invalidMessage: 'invalid test message', id: '1' };
     const wrapper = shallow(CvTextArea, { propsData });
+    expect(wrapper.props().invalidMessage).toBe('invalid test message');
+    expect(wrapper.props('invalidMessage')).toBe('invalid test message');
+    // eslint-disable-next-line
+    console.log(wrapper.vm.isInvalid, wrapper.vm.invalidMessage, wrapper.vm.$el.innerHTML);
     expect(wrapper.html()).toMatchSnapshot();
   });
 

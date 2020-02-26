@@ -134,7 +134,7 @@ describe('CvLoading', () => {
     expect(wrapper.vm.overlayClasses).toEqual([loadingOverlayStopClass]);
   });
 
-  it('animation should be stopped once `active` prop is set to false', () => {
+  it('animation should be stopped once `active` prop is set to false', async () => {
     const propsData = { active: true };
     const wrapper = mount(CvLoading, {
       propsData,
@@ -144,6 +144,9 @@ describe('CvLoading', () => {
     wrapper.setProps({
       active: false,
     });
+
+    await wrapper.vm.$nextTick(); // Wait until updates have been handled
+
     expect(wrapper.vm.stopping).toEqual(true);
     wrapper.trigger('animationend', { animationName: 'rotate-end-p2' });
     expect(wrapper.vm.stopping).toEqual(false);
@@ -161,7 +164,7 @@ describe('CvLoading', () => {
     expect(wrapper.vm.stopping).toEqual(false);
   });
 
-  it('should emit `loading-end` when animation `rotate-end-p2` stops', () => {
+  it('should emit `loading-end` when animation `rotate-end-p2` stops', async () => {
     const propsData = { active: true };
     const wrapper = mount(CvLoading, {
       propsData,
@@ -169,6 +172,9 @@ describe('CvLoading', () => {
     wrapper.setProps({
       active: false,
     });
+
+    await wrapper.vm.$nextTick(); // Wait until updates have been handled
+
     wrapper.trigger('animationend', { animationName: 'rotate-end-p2' });
     expect(wrapper.emitted()['loading-end']).toBeTruthy();
   });
