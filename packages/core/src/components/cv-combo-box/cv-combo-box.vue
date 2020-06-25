@@ -1,21 +1,15 @@
 <template>
-  <div class="cv-combo-box bx--list-box__wrapper" @focusout="onFocusOut">
-    <label v-if="title" :for="uid" class="bx--label" :class="{ 'bx--label--disabled': disabled }">{{ title }}</label>
+  <div :class="`cv-combo-box ${carbonPrefix}--list-box__wrapper`" @focusout="onFocusOut">
+    <label v-if="title" :for="uid" :class="labelClasses">{{ title }}</label>
 
-    <div v-if="isHelper" class="bx--form__helper-text" :class="{ 'bx--form__helper-text--disabled': disabled }">
+    <div v-if="isHelper" :class="helperClasses">
       <slot name="helper-text">{{ helperText }}</slot>
     </div>
 
     <div
       role="listbox"
       tabindex="-1"
-      class="bx--combo-box bx--list-box"
-      :class="{
-        'bx--list-box--light': theme === 'light',
-        'bx--combo-box--expanded': open,
-        'bx--list-box--expanded': open,
-        'bx--combo-box--disabled bx--list-box--disabled': disabled,
-      }"
+      :class="listboxClasses"
       :data-invalid="isInvalid"
       v-bind="$attrs"
       @keydown.down.prevent="onDown"
@@ -24,14 +18,14 @@
       @keydown.esc.prevent="onEsc"
       @click="onClick"
     >
-      <WarningFilled16 v-if="isInvalid" class="bx--list-box__invalid-icon" />
+      <WarningFilled16 v-if="isInvalid" :class="`${carbonPrefix}--list-box__invalid-icon`" />
       <div
         role="button"
         aria-haspopup="true"
         :aria-expanded="open ? 'true' : 'false'"
         :aria-owns="uid"
         :aria-controls="uid"
-        class="bx--list-box__field"
+        :class="`${carbonPrefix}--list-box__field`"
         tabindex="-1"
         type="button"
         :aria-label="open ? 'close menu' : 'open menu'"
@@ -40,7 +34,7 @@
       >
         <input
           ref="input"
-          class="bx--text-input"
+          :class="`${carbonPrefix}--text-input`"
           :aria-controls="uid"
           aria-autocomplete="list"
           role="combobox"
@@ -57,7 +51,7 @@
         <div
           v-if="filter"
           role="button"
-          class="bx--list-box__selection"
+          :class="`${carbonPrefix}--list-box__selection`"
           tabindex="0"
           title="Clear filter"
           @click.stop="clearFilter"
@@ -68,27 +62,26 @@
           <Close16 />
         </div>
 
-        <div class="bx--list-box__menu-icon" :class="{ 'bx--list-box__menu-icon--open': open }" role="button">
+        <div :class="iconClasses" role="button">
           <chevron-down-16 :aria-label="open ? 'Close menu' : 'Open menu'" />
         </div>
       </div>
 
-      <div v-show="open" :id="uid" class="bx--list-box__menu" role="listbox" ref="list">
+      <div v-show="open" :id="uid" :class="`${carbonPrefix}--list-box__menu`" role="listbox" ref="list">
         <div
           v-for="(item, index) in dataOptions"
           :key="`combo-box-${index}`"
-          class="bx--list-box__menu-item"
-          :class="{ 'bx--list-box__menu-item--highlighted': highlighted === item.value }"
+          :class="menuItemClasses(item.value)"
           ref="option"
           @click.stop.prevent="onItemClick(item.value)"
           @mousemove="onMousemove(item.value)"
           @mousedown.prevent
         >
-          <div class="bx--list-box__menu-item__option">{{ item.label }}</div>
+          <div :class="`${carbonPrefix}--list-box__menu-item__option`">{{ item.label }}</div>
         </div>
       </div>
     </div>
-    <div v-if="isInvalid" class="bx--form-requirement">
+    <div v-if="isInvalid" :class="`${carbonPrefix}--form-requirement`">
       <slot name="invalid-message">{{ invalidMessage }}</slot>
     </div>
   </div>
@@ -100,11 +93,12 @@ import WarningFilled16 from '@carbon/icons-vue/es/warning--filled/16';
 import ChevronDown16 from '@carbon/icons-vue/es/chevron--down/16';
 import Close16 from '@carbon/icons-vue/es/close/16';
 import uidMixin from '../../mixins/uid-mixin';
+import carbonPrefixMixin from '../../mixins/carbon-prefix-mixin';
 
 export default {
   name: 'CvComboBox',
   inheritAttrs: false,
-  mixins: [themeMixin, uidMixin],
+  mixins: [themeMixin, uidMixin, carbonPrefixMixin],
   components: { WarningFilled16, ChevronDown16, Close16 },
   props: {
     autoFilter: Boolean,
@@ -173,6 +167,51 @@ export default {
     this.checkSlots();
   },
   computed: {
+    labelClasses() {
+      const classes = [`${this.carbonPrefix}--label`];
+      if (this.disabled) {
+        classes.push(`${this.carbonPrefix}--label--disabled`);
+      }
+      return classes.join(' ');
+    },
+    iconClasses() {
+      const classes = [`${this.carbonPrefix}--list-box__menu-icon`];
+      if (this.open) {
+        classes.push(`${this.carbonPrefix}--list-box__menu-icon--open`);
+      }
+      return classes.join(' ');
+    },
+    helperClasses() {
+      const classes = [`${this.carbonPrefix}--form__helper-text`];
+      if (this.disabled) {
+        classes.push(`${this.carbonPrefix}--form__helper-text--disabled`);
+      }
+      return classes.join(' ');
+    },
+    listboxClasses() {
+      const classes = [`${this.carbonPrefix}--combo-box ${this.carbonPrefix}--list-box`];
+
+      if (this.theme === 'light') {
+        classes.push(`${this.carbonPrefix}--list-box--light`);
+      }
+      if (this.open) {
+        classes.push(`${this.carbonPrefix}--combo-box--expanded`);
+        classes.push(`${this.carbonPrefix}--list-box--expanded`);
+      }
+      if (this.disabled) {
+        classes.push(`${this.carbonPrefix}--combo-box--disabled ${this.carbonPrefix}--list-box--disabled`);
+      }
+      return classes.join(' ');
+    },
+    menuItemClasses() {
+      return value => {
+        const classes = [`${this.carbonPrefix}--list-box__menu-item`];
+        if (this.highlighted === value) {
+          classes.push(`${this.carbonPrefix}--list-box__menu-item--highlighted`);
+        }
+        return classes.join(' ');
+      };
+    },
     highlighted: {
       get() {
         return this.dataHighlighted;
