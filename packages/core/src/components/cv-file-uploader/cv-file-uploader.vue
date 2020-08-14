@@ -51,6 +51,7 @@
         data-target="[data-file-container]"
         v-on="inputListeners"
         ref="file-input"
+        :files="internalFiles"
       />
 
       <div data-file-container :class="`${carbonPrefix}--file-container`">
