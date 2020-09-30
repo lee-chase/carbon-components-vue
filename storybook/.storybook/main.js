@@ -6,5 +6,6 @@ module.exports = {
     '@storybook/addon-notes/register',
     '@storybook/addon-storysource/register',
     '@storybook/addon-options/register',
+    require.resolve('./addon-carbon-theme/register'),
   ],
 };
