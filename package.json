@@ -27,6 +27,7 @@
   "devDependencies": {
     "@ascendancyy/vue-cli-plugin-stylelint": "^1.1.2",
     "@carbon/icons-vue": "10.10.2",
+    "@carbon/storybook-addon-theme": "../carbon/packages/storybook-addon-carbon-theme",
     "@carbon/themes": "^10.17.0",
     "@carbon/type": "^10.13.0",
     "@commitlint/cli": "^7.6.1",

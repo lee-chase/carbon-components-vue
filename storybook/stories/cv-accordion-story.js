@@ -10,6 +10,9 @@ import TimerButton from '../_storybook/components/timer-button';
 import CvAccordionNotesMD from '../../packages/core/src/components/cv-accordion/cv-accordion-notes.md';
 import { CvAccordion, CvAccordionItem, CvAccordionSkeleton } from '../../packages/core/src/';
 
+// import { withCarbonTheme } from '@carbon/storybook-addon-theme/dist/decorator';
+// console.dir(withCarbonTheme);
+
 const storiesDefault = storiesOf('Components/CvAccordion', module);
 // const storiesExperimental = storiesOf('Experimental/CvAccordion', module);
 
@@ -17,6 +20,10 @@ const preKnobs = {};
 const variants = [{ name: 'default' }, { name: 'minimal', includes: [] }];
 
 const storySet = knobsHelper.getStorySet(variants, preKnobs);
+
+// storiesDefault.addDecorator(withCarbonTheme);
+// console.dir(storiesDefault);
+// console.dir(withCarbonTheme);
 
 for (const story of storySet) {
   storiesDefault.add(
