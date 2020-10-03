@@ -6,7 +6,7 @@
       'sv-template-view--alt-back': svAltBack,
     }"
   >
-    <section class="sv-template-view__component" :class="carbonTheme" :style="style">
+    <section class="sv-template-view__component" :style="style">
       <cv-inline-notification
         v-if="underConstruction"
         class="sv-under-construction"
@@ -21,16 +21,6 @@
         kind="warning"
       />
       <slot name="component"></slot>
-    </section>
-
-    <section class="sv-template-view__theme">
-      <h2 class="sv-template-view__label">Carbon theme</h2>
-      <cv-dropdown v-model="carbonTheme" label="Carbon theme" inline class="carbon-theme__switch">
-        <cv-dropdown-item value="carbon-theme--white">White</cv-dropdown-item>
-        <cv-dropdown-item value="carbon-theme--g10">Gray 10</cv-dropdown-item>
-        <cv-dropdown-item value="carbon-theme--g90">Gray 90</cv-dropdown-item>
-        <cv-dropdown-item value="carbon-theme--g100">Gray 100</cv-dropdown-item>
-      </cv-dropdown>
     </section>
 
     <section class="sv-template-view__other" :style="otherStyle">
@@ -66,15 +56,13 @@
 <script>
 import Vue from 'vue';
 import SvView from './sv-view.vue';
-import { CvInlineNotification, CvDropdown, CvDropdownItem } from '../../../../packages/core/src';
+import { CvInlineNotification } from '../../../../packages/core/src';
 
 export default {
   name: 'SvTemplateView',
   components: {
     SvView,
     CvInlineNotification,
-    CvDropdown,
-    CvDropdownItem,
   },
   props: {
     svMargin: { type: Boolean, default: true },
@@ -88,7 +76,6 @@ export default {
   data() {
     return {
       propsJSON: '',
-      carbonTheme: 'carbon-theme--white',
     };
   },
   computed: {
@@ -147,14 +134,6 @@ $component-padding: 20px;
 .sv-template-view {
   border: 1px solid transparent;
   background-color: $back-color-exp;
-}
-
-.sv-template-view__theme {
-  margin: $component-padding;
-
-  .carbon-theme__switch {
-    display: inline-block;
-  }
 }
 
 .sv-template-view__component {

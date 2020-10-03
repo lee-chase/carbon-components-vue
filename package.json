@@ -60,6 +60,7 @@
     "postcss-preset-env": "^6.7.0",
     "prettier": "^1.19.1",
     "sass-loader": "^8.0.0",
+    "storybook-addon-themes": "^6.0.0",
     "stylelint": "^10.1.0",
     "stylelint-config-property-sort-order-smacss": "^4.0.2",
     "stylelint-config-sass-guidelines": "^6.1.0",
