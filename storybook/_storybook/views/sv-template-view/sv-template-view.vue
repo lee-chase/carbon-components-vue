@@ -56,15 +56,13 @@
 <script>
 import Vue from 'vue';
 import SvView from './sv-view.vue';
-import { CvInlineNotification, CvDropdown, CvDropdownItem } from '../../../../packages/core/src';
+import { CvInlineNotification } from '../../../../packages/core/src';
 
 export default {
   name: 'SvTemplateView',
   components: {
     SvView,
     CvInlineNotification,
-    CvDropdown,
-    CvDropdownItem,
   },
   props: {
     svMargin: { type: Boolean, default: true },

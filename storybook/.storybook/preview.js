@@ -1,9 +1,9 @@
 import { configure, addDecorator, addParameters } from '@storybook/vue';
 import { themes } from '@storybook/theming';
-import addons from '@storybook/addons';
+// import addons from '@storybook/addons';
 import { withNotes } from '@storybook/addon-notes';
 import { withKnobs } from '@storybook/addon-knobs';
-import { withCarbonTheme } from '@carbon/storybook-addon-theme';
+import { withCarbonTheme } from '@carbon/storybook-addon-theme/vue';
 // import addons from '@storybook/addons';
 
 import Vue from 'vue';
@@ -16,22 +16,22 @@ import VueHighlightJS from 'vue-highlightjs';
 
 import '!style-loader!css-loader!postcss-loader!sass-loader!./styles.scss';
 
-debugger;
 addDecorator(withKnobs);
-addDecorator(options => storyFn => {
-  console.log('hi');
-  return storyFn();
-});
+// addDecorator(options => storyFn => {
+//   console.log('hi');
+//   return storyFn();
+// });
 addDecorator(withNotes);
+addDecorator(withCarbonTheme);
 
 // addons.getChannel().on(CARBON_CURRENT_THEME, theme => {
 //   debugger;
 //   document.documentElement.setAttribute('storybook-carbon-theme', theme);
 // });
 
-addons.getChannel().on(`CARBON_CURRENT_THEME`, theme => {
-  console.log('Well this is a turn up', theme);
-});
+// addons.getChannel().on(`CARBON_CURRENT_THEME`, theme => {
+//   console.log('Well this is a turn up', theme);
+// });
 
 addParameters({
   options: {
@@ -40,6 +40,10 @@ addParameters({
     theme: themes.dark,
     isToolshown: true,
     showPanel: true,
+  },
+  carbonTheme: {
+    theme: 'g10',
+    themes: ['g10', 'g90'],
   },
 });
 
