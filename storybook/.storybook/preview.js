@@ -17,10 +17,6 @@ import VueHighlightJS from 'vue-highlightjs';
 import '!style-loader!css-loader!postcss-loader!sass-loader!./styles.scss';
 
 addDecorator(withKnobs);
-// addDecorator(options => storyFn => {
-//   console.log('hi');
-//   return storyFn();
-// });
 addDecorator(withNotes);
 addDecorator(withCarbonTheme);
 
@@ -42,8 +38,8 @@ addParameters({
     showPanel: true,
   },
   carbonTheme: {
-    theme: 'g10',
-    themes: ['g10', 'g90'],
+    theme: 'g100',
+    themes: ['white', 'g100'],
   },
 });
 

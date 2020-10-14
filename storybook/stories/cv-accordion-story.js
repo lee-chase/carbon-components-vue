@@ -9,6 +9,7 @@ import TimerButton from '../_storybook/components/timer-button';
 
 import CvAccordionNotesMD from '../../packages/core/src/components/cv-accordion/cv-accordion-notes.md';
 import { CvAccordion, CvAccordionItem, CvAccordionSkeleton } from '../../packages/core/src/';
+import { withCarbonTheme } from '@carbon/storybook-addon-theme/vue';
 
 // import { withCarbonTheme } from '@carbon/storybook-addon-theme/dist/decorator';
 // console.dir(withCarbonTheme);
@@ -21,7 +22,7 @@ const variants = [{ name: 'default' }, { name: 'minimal', includes: [] }];
 
 const storySet = knobsHelper.getStorySet(variants, preKnobs);
 
-// storiesDefault.addDecorator(withCarbonTheme);
+storiesDefault.addDecorator(withCarbonTheme);
 // console.dir(storiesDefault);
 // console.dir(withCarbonTheme);
 
@@ -126,6 +127,10 @@ this.$refs.acc.state = this.$refs.acc.state.map((item, index) => index === ev.ch
     },
     {
       notes: { markdown: CvAccordionNotesMD },
+      carbonTheme: {
+        theme: 'g10',
+        themes: ['g10', 'g90'],
+      },
     }
   );
 }

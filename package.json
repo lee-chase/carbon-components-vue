@@ -22,8 +22,7 @@
     "test": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "core-js": "^3.4.4",
-    "storybook-addon-themes": "^6.0.0"
+    "core-js": "^3.4.4"
   },
   "devDependencies": {
     "@ascendancyy/vue-cli-plugin-stylelint": "^1.1.2",

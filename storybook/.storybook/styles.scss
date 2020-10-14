@@ -8,19 +8,19 @@ $feature-flags: (
 $carbon--theme: $carbon--theme--white;
 
 // Themes
-.carbon-theme--white {
+:root {
   @include carbon--theme($theme: $carbon--theme--white, $emit-custom-properties: true);
 }
 
-.carbon-theme--g10 {
+:root[storybook-carbon-theme='g10'] {
   @include carbon--theme($theme: $carbon--theme--g10, $emit-custom-properties: true);
 }
 
-.carbon-theme--g90 {
+:root[storybook-carbon-theme='g90'] {
   @include carbon--theme($theme: $carbon--theme--g90, $emit-custom-properties: true);
 }
 
-.carbon-theme--g100 {
+:root[storybook-carbon-theme='g100'] {
   @include carbon--theme($theme: $carbon--theme--g100, $emit-custom-properties: true);
 }
 

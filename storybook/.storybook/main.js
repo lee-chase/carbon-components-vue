@@ -6,7 +6,6 @@ module.exports = {
     '@storybook/addon-notes/register',
     '@storybook/addon-storysource/register',
     '@storybook/addon-options/register',
-    'storybook-addon-themes',
     '@carbon/storybook-addon-theme',
   ],
 };

@@ -125,22 +125,22 @@ export default {
 @import '~highlight.js/styles/default.css';
 @import '../../../.storybook/styles';
 
-$back-color: #f5f7fa;
-$back-color-exp: #f3f3f3;
-$alt-back-color: #fff;
+// $back-color: #f5f7fa;
+// $back-color-exp: #f3f3f3;
+$alt-back-color: #f4f4f4;
 $border: 1px solid #dfe3e6;
 $component-padding: 20px;
 
 .sv-template-view {
   border: 1px solid transparent;
-  background-color: $back-color-exp;
+  // background-color: $back-color-exp;
 }
 
 .sv-template-view__component {
   display: flex;
   flex-direction: column;
   border: $border;
-  background-color: $ui-01;
+  // background-color: $ui-01;
 
   // .carbon & {
   //   background-color: $back-color;
@@ -153,9 +153,9 @@ $component-padding: 20px;
     padding: $component-padding * 2;
   }
 
-  .sv-template-view--alt-back & {
-    background-color: $ui-background;
-  }
+  // .sv-template-view--alt-back & {
+  //   // background-color: $ui-background;
+  // }
 
   > .bx--form .bx--form-item {
     // only for
