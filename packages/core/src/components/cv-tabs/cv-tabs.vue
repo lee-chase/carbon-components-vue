@@ -11,9 +11,11 @@
       @keydown.down.prevent="onDown"
       @keydown.up.prevent="onUp"
       @keydown.esc.prevent="onEsc"
+      @keydown.home.prevent="onHome"
+      @keydown.end.prevent="onEnd"
     >
       <div
-        :class="[`${carbonPrefix}--tabs-trigger`, { ' ${carbonPrefix}--tabs-trigger--open': open }]"
+        :class="[`${carbonPrefix}--tabs-trigger`, { '${carbonPrefix}--tabs-trigger--open': open }]"
         tabindex="0"
         ref="trigger"
         @click="onClick"
