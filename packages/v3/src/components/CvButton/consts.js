@@ -2,11 +2,11 @@ export const buttonKinds = [
   '',
   'primary',
   'secondary',
-  'tertiary',
-  'ghost',
   'danger',
+  'ghost',
   'danger--ghost',
   'danger--tertiary',
+  'tertiary',
 ];
 export const buttonSizes = ['', 'default', 'field', 'small', 'sm', 'lg', 'xl'];
 

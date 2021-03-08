@@ -1,7 +1,8 @@
 import { shallowMount } from '@vue/test-utils';
-import { carbonPrefix } from '../../../global/settings';
-
 import { CvTag } from '..';
+
+import { carbonPrefix } from '../../../global/settings';
+const blockClass = `${carbonPrefix}--tag`;
 
 describe('CvTag', () => {
   it('CvTag - default', () => {
@@ -17,19 +18,17 @@ describe('CvTag', () => {
 
     // check if the root span exists
     // - verify classes on the root span
-    const tagSpan = wrapper.find('span');
-    expect(tagSpan.classes()).toContain(`${carbonPrefix}--tag`);
-    expect(tagSpan.classes()).toContain(`${carbonPrefix}--tag--${tagKind}`);
+    const tagSpan = wrapper.find(`.${blockClass}`);
+    expect(tagSpan.classes()).toContain(`${blockClass}--${tagKind}`);
 
     // check if the label exists
     // - verify the tag label class
     // - verify if the label's content is equal to the given label text
-    const labelSpan = tagSpan.find('span');
-    expect(labelSpan.classes()).toContain(`${carbonPrefix}--tag__label`);
-    expect(labelSpan.element.innerText).toEqual();
+    const labelSpan = tagSpan.find(`.${blockClass}__label`);
+    expect(labelSpan.element.textContent).toEqual(tagLabel);
 
     // check if the remove button exists
-    // - it should not, becuase the filter is set to false
+    // - it should not, because the filter is set to false
     expect(tagSpan.find('button').exists()).toBe(false);
   });
 
@@ -46,19 +45,17 @@ describe('CvTag', () => {
 
     // check if the root span exists
     // - verify classes on the root span
-    const tagSpan = wrapper.find('span');
-    expect(tagSpan.classes()).toContain(`${carbonPrefix}--tag`);
-    expect(tagSpan.classes()).toContain(`${carbonPrefix}--tag--${tagKind}`);
+    const tagSpan = wrapper.find(`.${blockClass}`);
+    expect(tagSpan.classes()).toContain(`${blockClass}--${tagKind}`);
 
     // check if the label exists
     // - verify the tag label class
     // - verify if the label's content is equal to the given label text
-    const labelSpan = tagSpan.find('span');
-    expect(labelSpan.classes()).toContain(`${carbonPrefix}--tag__label`);
-    expect(labelSpan.element.innerText).toEqual();
+    const labelSpan = tagSpan.find(`.${blockClass}__label`);
+    expect(labelSpan.element.textContent).toEqual(tagLabel);
 
     // check if the remove button exists
-    // - it should not, becuase the filter is set to false
+    // - it should not, because the filter is set to false
     const removeButton = tagSpan.find('button');
     expect(removeButton.exists()).toBe(true);
 
@@ -83,8 +80,32 @@ describe('CvTag', () => {
 
     // check if the root span exists
     // - verify tag disabled class on span
-    const tagSpan = wrapper.find('span');
-    expect(tagSpan.classes()).toContain(`${carbonPrefix}--tag--disabled`);
+    const tagSpan = wrapper.find(`.${blockClass}`);
+    expect(tagSpan.classes()).toContain(`${blockClass}--disabled`);
+
+    // Call onRemove directly to test disabled path
+    wrapper.vm.onRemove();
+    // check if it emitted remove
+    expect(wrapper.emitted().remove).toBeFalsy();
+  });
+
+  it('Renders a skeleton CvTag', () => {
+    const tagKind = 'red';
+    const tagLabel = 'test tag label';
+    const wrapper = shallowMount(CvTag, {
+      props: {
+        kind: tagKind,
+        label: tagLabel,
+        filter: true,
+        disabled: true,
+        skeleton: true,
+      },
+    });
+
+    // check if the root span exists
+    // - verify tag disabled class on span
+    const tagSpan = wrapper.find(`.${blockClass}`);
+    expect(tagSpan.classes()).toContain(`${carbonPrefix}--skeleton`);
 
     // Call onRemove directly to test disabled path
     wrapper.vm.onRemove();

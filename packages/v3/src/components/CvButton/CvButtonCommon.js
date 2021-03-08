@@ -46,10 +46,12 @@ export const useCvButtonCommon = (
   kind,
   size,
   skeleton = false,
-  iconOnly = false
+  iconOnly = false,
+  selected = false
 ) => {
   const buttonClasses = computed(() => {
     const classes = [`${carbonPrefix}--btn`];
+    const lowerCaseKind = kind.toLowerCase();
 
     if (skeleton) {
       classes.push(`${carbonPrefix}--skeleton`);
@@ -57,10 +59,14 @@ export const useCvButtonCommon = (
 
     if (iconOnly) {
       classes.push(`${carbonPrefix}--btn--icon-only`);
+
+      if (selected && lowerCaseKind === 'ghost') {
+        classes.push(`${carbonPrefix}--btn--selected`);
+      }
     }
 
     if (kind && !skeleton) {
-      classes.push(`${carbonPrefix}--btn--${kind.toLowerCase()}`);
+      classes.push(`${carbonPrefix}--btn--${lowerCaseKind}`);
     }
 
     if (size) {

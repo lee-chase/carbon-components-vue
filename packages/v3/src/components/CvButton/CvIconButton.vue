@@ -1,5 +1,6 @@
 <template>
   <button
+    :aria-pressed="kind === 'ghost' && selected"
     :class="[
       buttonClasses,
       `${carbonPrefix}--tooltip__trigger`,
@@ -49,6 +50,10 @@ export default {
      */
     label: { type: String, default: undefined },
     /**
+     * Specify whether the Button is currently selected
+     */
+    selected: Boolean,
+    /**
      * Size of the button
      */
     size,
@@ -74,7 +79,8 @@ export default {
       props.kind,
       props.size,
       false,
-      true
+      true,
+      props.selected
     );
 
     return {

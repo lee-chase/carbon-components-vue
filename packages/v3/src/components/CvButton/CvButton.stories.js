@@ -6,8 +6,8 @@ import {
   splitSlotArgs,
   storybookControlsFromProps,
   storyParametersObject,
-} from '../../global/storybook-utils';
-import { sbBtnPrefix } from './sbBtnPrefix';
+} from '../../assets/utils';
+import { sbBtnPrefix } from './storybook-utils';
 import { props as commonCvButtonProps } from './CvButtonCommon';
 import {
   Bee20,
@@ -17,6 +17,9 @@ import {
   EdtLoop20,
   IbmSecurity20,
 } from '@carbon/icons-vue';
+import { iconAsSvgString } from '../../assets/images/example-icon-svg.js.js.js.js';
+import iconAsSvgSymbolPath from '../../assets/images/example-icons.svg';
+import iconAsSvgPath from '../../assets/images/example-icon.svg';
 
 const icons = {
   Bee20,
@@ -25,6 +28,9 @@ const icons = {
   IbmCloud20,
   EdtLoop20,
   IbmSecurity20,
+  iconAsSvgPath,
+  iconAsSvgSymbolPath,
+  iconAsSvgString,
 };
 
 export default {
@@ -47,72 +53,30 @@ export default {
   },
 };
 
-const template = `<cv-button @click="onClick" v-bind="args">{{slotArgs.default}}</cv-button>`;
+const template = slots =>
+  `<cv-button @click="onClick" v-bind="args">${slots}</cv-button>`;
 const Template = (argsIn, { argTypes }) => {
-  let { args, slotArgs } = splitSlotArgs(argsIn);
+  let { args, slots } = splitSlotArgs(argsIn);
+  // update args
   args = { ...args, icon: icons[args.icon] };
 
   return {
     props: Object.keys(argTypes),
     components: { CvButton },
     setup() {
-      return { args, onClick: action('click'), slotArgs };
+      return { args, slots, onClick: action('click') };
     },
-    template,
+    template: template(slots.join('')),
   };
 };
 
-export const Primary = Template.bind({});
-Primary.args = {
+export const Default = Template.bind({});
+Default.args = {
   kind: 'primary',
-  'slotArgs.default': 'Primary',
+  'slot.default': 'Button',
 };
-Primary.parameters = storyParametersObject(
-  Primary.parameters,
+Default.parameters = storyParametersObject(
+  Default.parameters,
   template,
-  Primary.args
-);
-
-export const Secondary = Template.bind({});
-Secondary.args = {
-  kind: 'secondary',
-  'slotArgs.default': 'Secondary',
-};
-Secondary.parameters = storyParametersObject(
-  Secondary.parameters,
-  template,
-  Secondary.args
-);
-
-export const Field = Template.bind({});
-Field.args = {
-  'slotArgs.default': 'Field size',
-  size: 'field',
-};
-Field.parameters = storyParametersObject(
-  Field.parameters,
-  template,
-  Field.args
-);
-
-export const Small = Template.bind({});
-Small.args = {
-  'slotArgs.default': 'sm',
-  size: 'sm',
-};
-Small.parameters = storyParametersObject(
-  Small.parameters,
-  template,
-  Small.args
-);
-
-export const Large = Template.bind({});
-Large.args = {
-  'slotArgs.default': 'Large size',
-  size: 'lg',
-};
-Large.parameters = storyParametersObject(
-  Large.parameters,
-  template,
-  Large.args
+  Default.args
 );

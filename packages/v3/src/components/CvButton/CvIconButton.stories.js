@@ -6,7 +6,7 @@ import {
   storybookControlsFromProps,
   storyParametersObject,
 } from '../../global/storybook-utils';
-import { sbBtnPrefix } from './sbBtnPrefix';
+import { sbBtnPrefix } from './storybook-utils';
 
 import { props as commonCvButtonProps } from './CvButtonCommon';
 import {
@@ -58,7 +58,7 @@ export default {
   },
 };
 
-const template = `<cv-icon-button @click="onClick" v-bind="newArgs" />`;
+const template = `<cv-icon-button @click="onClick" v-bind="args" />`;
 const Template = (args, { argTypes }) => {
   const newArgs = { ...args, icon: icons[args.icon] };
   return {
@@ -66,7 +66,7 @@ const Template = (args, { argTypes }) => {
     components: { CvIconButton },
     template,
     setup() {
-      return { newArgs, onClick: action('click') };
+      return { args: newArgs, onClick: action('click') };
     },
   };
 };
@@ -82,8 +82,7 @@ Primary.args = {
 Primary.parameters = storyParametersObject(
   Primary.parameters,
   template,
-  Primary.args,
-  'v-bind="newArgs"'
+  Primary.args
 );
 
 export const Secondary = Template.bind({});
@@ -95,8 +94,7 @@ Secondary.args = {
 Secondary.parameters = storyParametersObject(
   Secondary.parameters,
   template,
-  Secondary.args,
-  'v-bind="newArgs"'
+  Secondary.args
 );
 
 export const Field = Template.bind({});
@@ -108,8 +106,7 @@ Field.args = {
 Field.parameters = storyParametersObject(
   Field.parameters,
   template,
-  Field.args,
-  'v-bind="newArgs"'
+  Field.args
 );
 
 export const Small = Template.bind({});
@@ -121,8 +118,7 @@ Small.args = {
 Small.parameters = storyParametersObject(
   Small.parameters,
   template,
-  Small.args,
-  'v-bind="newArgs"'
+  Small.args
 );
 
 export const Large = Template.bind({});
@@ -134,6 +130,5 @@ Large.args = {
 Large.parameters = storyParametersObject(
   Large.parameters,
   template,
-  Large.args,
-  'v-bind="newArgs"'
+  Large.args
 );

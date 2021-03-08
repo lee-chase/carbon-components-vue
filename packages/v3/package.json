@@ -93,7 +93,7 @@
   ],
   "jest": {
     "collectCoverage": true,
-    "collectCoverageFrom": ["src/*/**/*.{js,vue}", "!**/node_modules/**", "!**/*.stories.js", "!**/*.spec.js", "!**/*.test.js"],
+    "collectCoverageFrom": ["src/*/**/*.{js,vue}", "!**/node_modules/**", "!**/*.stories.js", "!**/*.spec.js", "!**/*.test.js", "!**/storybook-*/**", "!**/storybook-*.js"],
     "coverageThreshold": {
       "global": {
         "branches": 100,

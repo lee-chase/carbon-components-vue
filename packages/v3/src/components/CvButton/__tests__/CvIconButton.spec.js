@@ -25,4 +25,23 @@ describe('CvIconButton', () => {
     await wrapper.find('button').trigger('click');
     expect(wrapper.emitted('click')).toHaveLength(1);
   });
+
+  it('renders ghost icon button with selected state', () => {
+    const labelContent = 'label content';
+    const wrapper = shallowMount(CvIconButton, {
+      props: {
+        kind: 'ghost',
+        label: labelContent,
+        selected: true,
+      },
+    });
+
+    const button = wrapper.find('button');
+    expect(button.classes()).toContain(`${carbonPrefix}--btn`);
+    expect(button.classes()).toContain(`${carbonPrefix}--btn--ghost`);
+    expect(button.classes()).toContain(`${carbonPrefix}--btn--selected`);
+
+    const assistiveText = button.find(`.${carbonPrefix}--assistive-text`);
+    expect(assistiveText.text()).toBe(labelContent);
+  });
 });

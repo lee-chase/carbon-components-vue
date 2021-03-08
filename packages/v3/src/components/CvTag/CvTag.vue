@@ -1,12 +1,12 @@
 <template>
   <div v-if="skeleton" :class="tagClasses" />
   <div v-else :class="tagClasses" role="listitem" :title="title">
-    <span :class="`${carbonPrefix}--tag__label`">
+    <span :class="`${blockClass}__label`">
       {{ label }}
     </span>
     <button
       v-if="filter"
-      :class="`${carbonPrefix}--tag__close-icon`"
+      :class="`${blockClass}__close-icon`"
       :aria-label="clearAriaLabel"
       @click.stop.prevent="onRemove"
       :disabled="disabled"
@@ -21,6 +21,8 @@ import { computed } from 'vue';
 import { carbonPrefix } from '../../global/settings';
 import { tagKinds } from './consts';
 import Close16 from '@carbon/icons-vue/es/close/16';
+
+const blockClass = `${carbonPrefix}--tag`;
 
 export default {
   name: 'CvTag',
@@ -69,20 +71,17 @@ export default {
     });
 
     const tagClasses = computed(() => {
-      const classes = [
-        `${carbonPrefix}--tag`,
-        `${carbonPrefix}--tag--${props.kind}`,
-      ];
+      const classes = [`${blockClass}`, `${blockClass}--${props.kind}`];
 
       if (props.skeleton) {
         classes.push(`${carbonPrefix}--skeleton`);
       } else {
         if (props.filter) {
-          classes.push(`${carbonPrefix}--tag--filter`);
+          classes.push(`${blockClass}--filter`);
         }
 
         if (props.disabled) {
-          classes.push(`${carbonPrefix}--tag--disabled`);
+          classes.push(`${blockClass}--disabled`);
         }
       }
       return classes;
@@ -95,7 +94,7 @@ export default {
     };
 
     return {
-      carbonPrefix,
+      blockClass,
       title,
       tagClasses,
       onRemove,

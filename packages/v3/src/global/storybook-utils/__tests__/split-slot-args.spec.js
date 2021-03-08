@@ -4,24 +4,24 @@ describe('splitSlotArgs', () => {
   it('Should cope with null', () => {
     expect(splitSlotArgs()).toEqual({
       args: {},
-      slotArgs: {},
+      slots: {},
     });
   });
 
-  it('shold split args and slot args', () => {
+  it('should split args and slot args', () => {
     expect(
       splitSlotArgs({
         abc: 'abc',
         def: 'def',
-        'slotArgs.ghi': 'ghi',
-        'slotArgs.jkl': 'jkl',
+        'slot.ghi': 'ghi',
+        'slot.jkl': 'jkl',
       })
     ).toEqual({
       args: {
         abc: 'abc',
         def: 'def',
       },
-      slotArgs: {
+      slots: {
         ghi: 'ghi',
         jkl: 'jkl',
       },
