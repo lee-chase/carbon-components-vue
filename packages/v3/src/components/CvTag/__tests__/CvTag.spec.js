@@ -1,8 +1,8 @@
 import { shallowMount } from '@vue/test-utils';
 import { CvTag } from '..';
 
-import { carbonPrefix } from '../../../global/settings';
-const blockClass = `${carbonPrefix}--tag`;
+import { carbonPrefix, getBlockClass } from '../../../global/settings';
+const blockClass = getBlockClass('tag');
 
 describe('CvTag', () => {
   it('CvTag - default', () => {

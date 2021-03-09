@@ -1,7 +1,9 @@
 import { shallowMount } from '@vue/test-utils';
-import { carbonPrefix } from '../../../global/settings';
+import { getBlockClass } from '../../../global/settings';
 
 import { CvButtonSet } from '..';
+
+const blockClass = getBlockClass('btn');
 
 describe('CvButtonSeet', () => {
   it('renders button set and slot', async () => {
@@ -12,7 +14,7 @@ describe('CvButtonSeet', () => {
       },
     });
 
-    const buttonSet = wrapper.find(`.${carbonPrefix}--btn-set`);
+    const buttonSet = wrapper.find(`.${blockClass}-set`);
     expect(buttonSet).not.toBeUndefined();
     expect(buttonSet.text()).toBe(slotContent);
   });
@@ -28,9 +30,9 @@ describe('CvButtonSeet', () => {
       },
     });
 
-    const buttonSet = wrapper.find(`.${carbonPrefix}--btn-set`);
+    const buttonSet = wrapper.find(`.${blockClass}-set`);
     expect(buttonSet).not.toBeUndefined();
-    expect(buttonSet.classes()).toContain(`${carbonPrefix}--btn-set--stacked`);
+    expect(buttonSet.classes()).toContain(`${blockClass}-set--stacked`);
     expect(buttonSet.text()).toBe(slotContent);
   });
 });

@@ -1,6 +1,8 @@
-import { carbonPrefix } from '../../../global/settings';
+import { carbonPrefix, getBlockClass } from '../../../global/settings';
 import { props, useCvButtonCommon } from '../CvButtonCommon';
 import { CvButtonConsts } from '..';
+
+const blockClass = getBlockClass('btn');
 
 describe('CvButtonCommon.props', () => {
   it('has no default icon', () => {
@@ -45,24 +47,24 @@ describe('CvButtonCommon.props', () => {
 describe('CvButtonCommon.useCvButtonCommon', () => {
   let { buttonClasses } = useCvButtonCommon('primary', 'sm', false, true);
   expect(buttonClasses.value).toEqual([
-    `${carbonPrefix}--btn`,
-    `${carbonPrefix}--btn--icon-only`,
-    `${carbonPrefix}--btn--primary`,
-    `${carbonPrefix}--btn--sm`,
+    `${blockClass}`,
+    `${blockClass}--icon-only`,
+    `${blockClass}--primary`,
+    `${blockClass}--sm`,
   ]);
 
   buttonClasses = useCvButtonCommon('wibble', 'sm', true, true).buttonClasses;
   expect(buttonClasses.value).toEqual([
-    `${carbonPrefix}--btn`,
+    `${blockClass}`,
     `${carbonPrefix}--skeleton`,
-    `${carbonPrefix}--btn--icon-only`,
-    `${carbonPrefix}--btn--sm`,
+    `${blockClass}--icon-only`,
+    `${blockClass}--sm`,
   ]);
 
   buttonClasses = useCvButtonCommon('secondary', 'small').buttonClasses;
   expect(buttonClasses.value).toEqual([
-    `${carbonPrefix}--btn`,
-    `${carbonPrefix}--btn--secondary`,
-    `${carbonPrefix}--btn--sm`,
+    `${blockClass}`,
+    `${blockClass}--secondary`,
+    `${blockClass}--sm`,
   ]);
 });

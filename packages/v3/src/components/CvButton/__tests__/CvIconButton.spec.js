@@ -1,7 +1,9 @@
 import { shallowMount } from '@vue/test-utils';
-import { carbonPrefix } from '../../../global/settings';
+import { carbonPrefix, getBlockClass } from '../../../global/settings';
 
 import { CvIconButton } from '..';
+
+const blockClass = getBlockClass('btn');
 
 describe('CvIconButton', () => {
   it('renders button and slot', () => {
@@ -13,8 +15,8 @@ describe('CvIconButton', () => {
     });
 
     const button = wrapper.find('button');
-    expect(button.classes()).toContain(`${carbonPrefix}--btn`);
-    expect(button.classes()).toContain(`${carbonPrefix}--btn--primary`);
+    expect(button.classes()).toContain(`${blockClass}`);
+    expect(button.classes()).toContain(`${blockClass}--primary`);
 
     const assistiveText = button.find(`.${carbonPrefix}--assistive-text`);
     expect(assistiveText.text()).toBe(labelContent);
@@ -37,9 +39,9 @@ describe('CvIconButton', () => {
     });
 
     const button = wrapper.find('button');
-    expect(button.classes()).toContain(`${carbonPrefix}--btn`);
-    expect(button.classes()).toContain(`${carbonPrefix}--btn--ghost`);
-    expect(button.classes()).toContain(`${carbonPrefix}--btn--selected`);
+    expect(button.classes()).toContain(`${blockClass}`);
+    expect(button.classes()).toContain(`${blockClass}--ghost`);
+    expect(button.classes()).toContain(`${blockClass}--selected`);
 
     const assistiveText = button.find(`.${carbonPrefix}--assistive-text`);
     expect(assistiveText.text()).toBe(labelContent);

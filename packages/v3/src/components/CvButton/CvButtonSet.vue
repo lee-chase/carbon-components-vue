@@ -1,9 +1,6 @@
 <template>
   <div
-    :class="[
-      `${carbonPrefix}--btn-set`,
-      { [`${carbonPrefix}--btn-set--stacked`]: stacked },
-    ]"
+    :class="[`${blockClass}-set`, { [`${blockClass}-set--stacked`]: stacked }]"
   >
     <!-- @slot Default content of button set, expects buttons -->
     <slot />
@@ -11,7 +8,8 @@
 </template>
 
 <script>
-import { carbonPrefix } from '../../global/settings';
+import { getBlockClass } from '../../global/settings';
+const blockClass = getBlockClass('btn');
 
 export default {
   name: 'CvButtonSet',
@@ -23,7 +21,7 @@ export default {
   },
   setup() {
     return {
-      carbonPrefix,
+      blockClass,
     };
   },
 };

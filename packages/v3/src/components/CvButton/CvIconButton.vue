@@ -13,12 +13,12 @@
   >
     <span :class="`${carbonPrefix}--assistive-text`">{{ label }}</span>
 
-    <cv-svg :svg="icon" :class="`${carbonPrefix}--btn__icon`" />
+    <cv-svg :svg="icon" :class="`${blockClass}__icon`" />
   </button>
 </template>
 
 <script>
-import { carbonPrefix } from '../../global/settings';
+import { carbonPrefix, getBlockClass } from '../../global/settings';
 import {
   props as commonCvButtonProps,
   useCvButtonCommon,
@@ -26,6 +26,7 @@ import {
 import CvSvg from '../CvSvg/_CvSvg';
 
 const { disabled, icon, kind, size } = commonCvButtonProps;
+const blockClass = getBlockClass('btn');
 
 export default {
   name: 'CvIconButton',
@@ -84,6 +85,7 @@ export default {
     );
 
     return {
+      blockClass,
       buttonClasses,
       carbonPrefix,
     };

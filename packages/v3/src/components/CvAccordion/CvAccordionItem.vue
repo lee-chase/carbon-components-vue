@@ -3,12 +3,12 @@
     data-accordion-item
     class="cv-accordion-item"
     :class="[
-      `${carbonPrefix}--accordion__item`,
+      `${blockClass}__item`,
 
       {
-        [`${carbonPrefix}--accordion__item--disabled`]: disabled,
-        [`${carbonPrefix}--accordion__item--active`]: isOpen,
-        [`${carbonPrefix}--accordion__item--${animation}`]: animation,
+        [`${blockClass}__item--disabled`]: disabled,
+        [`${blockClass}__item--active`]: isOpen,
+        [`${blockClass}__item--${animation}`]: animation,
       },
     ]"
     @animationend="onAnimationEnd"
@@ -17,18 +17,18 @@
       :disabled="disabled"
       ref="button"
       type="button"
-      :class="`${carbonPrefix}--accordion__heading`"
+      :class="`${blockClass}__heading`"
       :aria-expanded="isOpen ? 'true' : 'false'"
       :aria-controls="cvId"
       @click.prevent.stop="onClick"
     >
-      <ChevronRight16 :class="`${carbonPrefix}--accordion__arrow`" />
-      <p :class="`${carbonPrefix}--accordion__title`">
+      <ChevronRight16 :class="`${blockClass}__arrow`" />
+      <p :class="`${blockClass}__title`">
         <!-- @slot title of the accordion item -->
         <slot name="title"></slot>
       </p>
     </button>
-    <div :id="cvId" :class="`${carbonPrefix}--accordion__content`">
+    <div :id="cvId" :class="`${blockClass}__content`">
       <!-- @slot content of accordion item -->
       <slot name="content"></slot>
     </div>
@@ -37,11 +37,12 @@
 
 <script>
 import { onMounted, onBeforeUnmount, inject, ref } from 'vue';
-import { carbonPrefix } from '../../global/settings';
+import { getBlockClass } from '../../global/settings';
 import { useCvId, props as propsCvId } from '../../use/cvId';
 import { ChevronRight16 } from '@carbon/icons-vue/';
 
 const { id } = propsCvId;
+const blockClass = getBlockClass('accordion');
 
 export default {
   name: 'CvAccordionItem',
@@ -95,7 +96,7 @@ export default {
       deregisterItem(cvId.value);
     });
 
-    return { animation, carbonPrefix, cvId, onClick, onAnimationEnd, isOpen };
+    return { animation, blockClass, cvId, onClick, onAnimationEnd, isOpen };
   },
 };
 </script>

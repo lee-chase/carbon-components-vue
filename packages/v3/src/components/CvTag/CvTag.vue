@@ -18,11 +18,11 @@
 
 <script>
 import { computed } from 'vue';
-import { carbonPrefix } from '../../global/settings';
+import { carbonPrefix, getBlockClass } from '../../global/settings';
 import { tagKinds } from './consts';
 import Close16 from '@carbon/icons-vue/es/close/16';
 
-const blockClass = `${carbonPrefix}--tag`;
+const blockClass = getBlockClass('tag');
 
 export default {
   name: 'CvTag',

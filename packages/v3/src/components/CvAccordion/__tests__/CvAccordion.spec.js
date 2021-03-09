@@ -2,7 +2,9 @@ import { shallowMount, mount } from '@vue/test-utils';
 import { ref } from 'vue';
 
 import { CvAccordion, CvAccordionItem } from '../';
-import { carbonPrefix } from '../../../global/settings';
+import { getBlockClass } from '../../../global/settings';
+
+const blockClass = getBlockClass('accordion');
 
 const dummyContent = 'Dummy content';
 const AccordionWithItemContent = {
@@ -31,7 +33,7 @@ describe('CvAccordion', () => {
     const wrapper = shallowMount(CvAccordion, {
       slots: { default: dummyContent },
     });
-    expect(wrapper.classes()).toContain(`${carbonPrefix}--accordion`);
+    expect(wrapper.classes()).toContain(`${blockClass}`);
     expect(wrapper.text()).toBe(dummyContent);
   });
 
@@ -52,7 +54,7 @@ describe('CvAccordion', () => {
   it('Renders with item children and behaves well', async () => {
     const wrapper = mount(AccordionWithItemContent);
 
-    const acc = wrapper.findComponent(`.${carbonPrefix}--accordion`);
+    const acc = wrapper.findComponent(`.${blockClass}`);
     const expectedState = [
       {
         id: 'acc-item-1',
@@ -84,13 +86,11 @@ describe('CvAccordion', () => {
     expectedState[0].open = true; // 0 open
     expect(acc.vm.state).toEqual(expectedState);
     const classes1 = item1.classes();
-    expect(classes1).toContain(`${carbonPrefix}--accordion__item--active`);
-    expect(classes1).toContain(`${carbonPrefix}--accordion__item--expanding`);
+    expect(classes1).toContain(`${blockClass}__item--active`);
+    expect(classes1).toContain(`${blockClass}__item--expanding`);
     // >> check animation completes
     await item1.trigger('animationend');
-    expect(item1.classes()).not.toContain(
-      `${carbonPrefix}--accordion__item--expanding`
-    );
+    expect(item1.classes()).not.toContain(`${blockClass}__item--expanding`);
     // >> emitted correct chagne
     expect(wrapper.emitted().change[0]).toEqual([
       {
@@ -108,13 +108,9 @@ describe('CvAccordion', () => {
     await item1Button.trigger('click');
     expectedState[0].open = false; // 1 open
     expect(acc.vm.state).toEqual(expectedState);
-    expect(item1.classes()).toContain(
-      `${carbonPrefix}--accordion__item--collapsing`
-    );
+    expect(item1.classes()).toContain(`${blockClass}__item--collapsing`);
     await item1.trigger('animationend');
-    expect(item1.classes()).not.toContain(
-      `${carbonPrefix}--accordion__item--expanding`
-    );
+    expect(item1.classes()).not.toContain(`${blockClass}__item--expanding`);
 
     // Click remove an item and see change registration (confirms deregister)
     await wrapper.vm.oneLess();
@@ -152,7 +148,7 @@ describe('CvAccordion', () => {
 
   //   // console.dir(wrapper.__app);
 
-  //   const acc = wrapper.find(`${carbonPrefix}--accordion`);
+  //   const acc = wrapper.find(`${blockClass}`);
   //   expect(acc).not.toBeNull();
   //   expect(wrapper.text()).toBe(dummyContent);
   // });

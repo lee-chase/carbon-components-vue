@@ -1,6 +1,8 @@
 import { computed } from 'vue';
-import { carbonPrefix } from '../../global/settings';
+import { carbonPrefix, getBlockClass } from '../../global/settings';
 import { buttonKinds, buttonSizes } from './consts.js';
+
+const blockClass = getBlockClass('btn');
 
 export const props = {
   /**
@@ -50,7 +52,7 @@ export const useCvButtonCommon = (
   selected = false
 ) => {
   const buttonClasses = computed(() => {
-    const classes = [`${carbonPrefix}--btn`];
+    const classes = [`${blockClass}`];
     const lowerCaseKind = kind.toLowerCase();
 
     if (skeleton) {
@@ -58,20 +60,20 @@ export const useCvButtonCommon = (
     }
 
     if (iconOnly) {
-      classes.push(`${carbonPrefix}--btn--icon-only`);
+      classes.push(`${blockClass}--icon-only`);
 
       if (selected && lowerCaseKind === 'ghost') {
-        classes.push(`${carbonPrefix}--btn--selected`);
+        classes.push(`${blockClass}--selected`);
       }
     }
 
     if (kind && !skeleton) {
-      classes.push(`${carbonPrefix}--btn--${lowerCaseKind}`);
+      classes.push(`${blockClass}--${lowerCaseKind}`);
     }
 
     if (size) {
       const _size = size === 'small' ? 'sm' : size;
-      classes.push(`${carbonPrefix}--btn--${_size}`);
+      classes.push(`${blockClass}--${_size}`);
     }
 
     return classes;

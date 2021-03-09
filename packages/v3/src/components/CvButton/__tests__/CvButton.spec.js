@@ -1,7 +1,9 @@
 import { shallowMount } from '@vue/test-utils';
-import { carbonPrefix } from '../../../global/settings';
+import { getBlockClass } from '../../../global/settings';
 
 import { CvButton } from '..';
+
+const blockClass = getBlockClass('btn');
 
 describe('CvButton', () => {
   it('renders button and slot', async () => {
@@ -13,8 +15,8 @@ describe('CvButton', () => {
     });
 
     const button = wrapper.find('button');
-    expect(button.classes()).toContain(`${carbonPrefix}--btn`);
-    expect(button.classes()).toContain(`${carbonPrefix}--btn--primary`);
+    expect(button.classes()).toContain(`${blockClass}`);
+    expect(button.classes()).toContain(`${blockClass}--primary`);
 
     expect(button.text()).toBe(slotContent);
   });

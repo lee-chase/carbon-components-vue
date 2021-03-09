@@ -2,10 +2,10 @@
   <ul
     data-accordion
     :class="[
-      `cv-accordion ${carbonPrefix}--accordion`,
+      `cv-accordion ${blockClass}`,
       {
-        [`${carbonPrefix}--accordion--${align}`]: align,
-        [`${carbonPrefix}--accordion--${size}`]: size,
+        [`${blockClass}--${align}`]: align,
+        [`${blockClass}--${size}`]: size,
       },
     ]"
   >
@@ -15,8 +15,10 @@
 
 <script>
 import { computed, provide, reactive } from 'vue';
-import { carbonPrefix } from '../../global/settings';
+import { getBlockClass } from '../../global/settings';
 import { alignConsts, sizeConsts } from './consts';
+
+const blockClass = getBlockClass('accordion');
 
 export default {
   name: 'CvAccordion',
@@ -84,7 +86,7 @@ export default {
       });
     });
 
-    return { carbonPrefix, state };
+    return { blockClass, state };
   },
 };
 </script>
